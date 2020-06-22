@@ -31,9 +31,9 @@ public class RouletteController {
     }
 
     @PostMapping
-    public ResponseEntity<String> create() {
+    public ResponseEntity<Roulette> create() {
         Roulette newRoulette = rouletteService.create(new Roulette());
-        return new ResponseEntity<>(newRoulette.getId(), HttpStatus.CREATED);
+        return new ResponseEntity<>(newRoulette, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}/open")
