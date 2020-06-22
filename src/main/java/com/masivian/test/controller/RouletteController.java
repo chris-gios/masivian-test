@@ -26,14 +26,14 @@ public class RouletteController {
     private BetService betService;
 
     @GetMapping
-    public List<Roulette> findAll() {
-        return rouletteService.findAll();
+    public ResponseEntity<List<Roulette>> findAll() {
+        return new ResponseEntity<>(rouletteService.findAll(), HttpStatus.OK);
     }
 
     @PostMapping
-    public String create() {
+    public ResponseEntity<String> create() {
         Roulette newRoulette = rouletteService.create(new Roulette());
-        return newRoulette.getId();
+        return new ResponseEntity<>(newRoulette.getId(), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}/open")
