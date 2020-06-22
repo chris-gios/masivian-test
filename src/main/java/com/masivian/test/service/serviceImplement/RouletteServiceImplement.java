@@ -22,6 +22,11 @@ public class RouletteServiceImplement implements RouletteService {
     }
 
     @Override
+    public Roulette update(Roulette roulette) {
+        return rouletteRepository.save(roulette);
+    }
+
+    @Override
     public List<Roulette> findAll() {
         return rouletteRepository.findAll();
     }

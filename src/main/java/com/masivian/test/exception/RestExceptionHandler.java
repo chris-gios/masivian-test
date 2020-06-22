@@ -1,5 +1,7 @@
 package com.masivian.test.exception;
 
+import com.masivian.test.exception.business.RouletteClosedException;
+import com.masivian.test.exception.business.RouletteNotFoundException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
@@ -50,6 +52,18 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         ApiMessage apiError = new ApiMessage(HttpStatus.BAD_REQUEST, "Validation error ", ex.getMessage());
         return new ResponseEntity<>(apiError, headers, status);
+    }
+
+    @ExceptionHandler(RouletteNotFoundException.class)
+    public ResponseEntity<ApiMessage> exceptionHandler(RouletteNotFoundException ex) {
+        ApiMessage apiMessage = new ApiMessage(HttpStatus.BAD_REQUEST, ex.getMessage(), ex);
+        return new ResponseEntity<>(apiMessage, new HttpHeaders(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(RouletteClosedException.class)
+    public ResponseEntity<ApiMessage> exceptionHandler(RouletteClosedException ex) {
+        ApiMessage apiMessage = new ApiMessage(HttpStatus.BAD_REQUEST, ex.getMessage(), ex);
+        return new ResponseEntity<>(apiMessage, new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Exception.class)

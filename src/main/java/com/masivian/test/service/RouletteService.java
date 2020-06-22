@@ -13,6 +13,6 @@ public interface RouletteService {
 
     Roulette create(Roulette roulette);
 
-
+    Roulette update(Roulette roulette);
 
 }
